@@ -30,6 +30,9 @@ jobs:
 
       - name: Setup Postgresql
         uses: ankane/setup-postgres@v1
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         with:
           config: |
             shared_preload_libraries = 'pg_stat_statements'
