@@ -16,7 +16,10 @@ gem "pghero"
 gem "pg_query", ">= 2"
 
 group :development, :test do
+  gem "capybara"
   gem "debug"
+  gem "rspec-rails"
+  gem "webdrivers"
 end
 
 group :development do
