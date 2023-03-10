@@ -5,19 +5,20 @@ jobs:
   ci:
     runs-on: ubuntu-latest
 
-    # services:
-    #   postgres:
-    #     image: postgres:14-bullseye
-    #     ports:
-    #       - "5432:5432"
-    #     env:
-    #       POSTGRES_USER: postgres
-    #       POSTGRES_PASSWORD: postgres
-    #     options: >-
-    #       --health-cmd pg_isready
-    #       --health-interval 10s
-    #       --health-timeout 5s
-    #       --health-retries 5
+    services:
+      postgres:
+        image: postgres:14-bullseye
+        ports:
+          - "5432:5432"
+        command: postgres -c shared_preload_libraries=pg_stat_statements -c pg_stat_statements.track=all -c pg_stat_statements.max = 10000 -c track_activity_query_size = 2048
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Checkout code
@@ -28,14 +29,14 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Setup Postgresql
-        uses: ankane/setup-postgres@v1
-        with:
-          config: |
-            shared_preload_libraries = 'pg_stat_statements'
+      # - name: Setup Postgresql
+      #   uses: ankane/setup-postgres@v1
+      #   with:
+      #     config: |
+      #       shared_preload_libraries = 'pg_stat_statements'
 
       - name: Setup DB
-        run: RAILS_ENV=test bin/rails db:create & bin/rails db:schema:load
+        run: RAILS_ENV=test bin/rails db:setup
 
       - name: Run Tests
         run: bundle exec rspec
