@@ -30,8 +30,11 @@ jobs:
 
       - name: Setup Postgresql
         uses: ankane/setup-postgres@v1
+        env:
+          PGUSER: postgres
+          PGPASSWORD: postgres
+          PGDATABASE: pg_hero_test
         with:
-          database: pg_hero_test
           config: |
             shared_preload_libraries = 'pg_stat_statements'
 
