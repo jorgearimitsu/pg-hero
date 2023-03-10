@@ -1,24 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is an example of using the [ankane/setup-postgres@v1](https://github.com/ankane/setup-postgres) action on github workflow, that makes easier to set up PostgreSQL with additional configuration.
 
-Things you may want to cover:
+By default this action create a db and user called `postgres` but no password.
 
-* Ruby version
+In this example, my database needs a user and password:
 
-* System dependencies
+**config/database.yml**:
 
-* Configuration
+```yml
+ url: <%= ENV["DATABASE_URL"] || "postgres://postgres:postgres@localhost" %>
+```
 
-* Database creation
+So I need to set a password after this action is executed:
 
-* Database initialization
+**.github/workflows/ci.yml**:
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```yml
+  - name: Set DB password
+    run: psql -d postgres -c "ALTER USER postgres PASSWORD 'postgres'"
+```
