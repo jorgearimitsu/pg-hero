@@ -79,6 +79,7 @@ GEM
     erubi (1.12.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    google-protobuf (3.22.1-x86_64-linux)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.1.5)
@@ -116,6 +117,10 @@ GEM
     nokogiri (1.14.2-x86_64-linux)
       racc (~> 1.4)
     pg (1.4.6)
+    pg_query (4.2.0)
+      google-protobuf (>= 3.19.2)
+    pghero (3.2.0)
+      activerecord (>= 6)
     puma (5.6.5)
       nio4r (~> 2.0)
     racc (1.6.2)
@@ -188,6 +193,8 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   pg (~> 1.1)
+  pg_query (>= 2)
+  pghero
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.2)
   redis (~> 4.0)

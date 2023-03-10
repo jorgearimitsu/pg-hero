@@ -12,6 +12,8 @@ gem "stimulus-rails"
 gem "jbuilder"
 gem "redis", "~> 4.0"
 gem "bootsnap", require: false
+gem "pghero"
+gem "pg_query", ">= 2"
 
 group :development, :test do
   gem "debug"
